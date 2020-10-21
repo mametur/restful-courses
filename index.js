@@ -41,6 +41,7 @@ app.post('/data/courses.json',(req,res)=>{
 	
 	
    fs.writeFileSync(filePath, write,'utf-8');
+  console.log(course)
   
    res.send(parsedContent);
 
