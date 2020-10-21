@@ -31,3 +31,18 @@ This user story has been developed through a branch called 'getAll'.
 - import express framework
 - import fs module
 - write logic to show all list on the terminal or postman
+
+## 1. POST courses
+
+**As a site visitor, I want to be able to post new object from postman and render it on the terminal or localhost with the other lists.**
+
+This user story has been developed through a branch called 'post'.
+
+> Assign to **Gelila Ali*
+
+### Node.js
+
+- import express framework
+- import fs module
+- import joi framework
+- write logic to post a new list on the postman

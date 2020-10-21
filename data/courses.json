@@ -1,10 +1,8 @@
 [
     {
         "id": 1,
-        "name":"HYF"
-
+        "name": "HYF"
     },
-
     {
         "id": 2,
         "name": "Mosh"
@@ -20,5 +18,17 @@
     {
         "id": 5,
         "name": "Udemy"
+    },
+    {
+        "id": 6,
+        "name": "hello there!"
+    },
+    {
+        "id": 7,
+        "name": "I am posting from postman"
+    },
+    {
+        "id": 8,
+        "name": "123"
     }
 ]
