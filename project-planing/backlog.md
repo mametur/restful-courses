@@ -6,8 +6,8 @@ A collection of user stories you can choose from. Stories inside of each priorit
 
 > these are necessary for basic usability
 
-- [ ] As a ... I want to ... so that ...
-  - _Given [context] when [a specific action is performed] then [a set of consequences should occur]_
+- [ ] As a site visitor, I want to see all courses list on the terminal so that I can examine the all courses list ...
+  - _When user pass courses path as url afterwards it will show all list of courses_
 
 ## Should-Haves
 
