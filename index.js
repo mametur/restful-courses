@@ -13,16 +13,24 @@ app.get('/', function (req, res) {
 	res.send(`Group1`);
 });
 
+
 // read courses.json file
 const filePath = __dirname + '/data/courses.json';
-const content = fs.readFileSync(filePath, 'utf-8');
-const parsedContent = JSON.parse(content);
+
+// callback is added
+const content = fs.readFile(filePath, 'utf-8',(err,data)=>{
+	if(err){
+		console.error(err)
+	}
+	JSON.parse(data)
+});
+
 
 app.get('/data/courses.json', function (req, res) {
-	console.log(parsedContent);
+	console.log(content);
 	
 	//display json data  on the localhost with relative path
-	res.send(parsedContent);
+	res.send(content);
 });
 
 app.post('/data/courses.json',(req,res)=>{
@@ -36,13 +44,21 @@ app.post('/data/courses.json',(req,res)=>{
 		id:parsedContent.length+1,
 		name: req.body.name,
 	}
-	parsedContent.push(course);
-	const write = JSON.stringify(parsedContent,null,4);
 	
+	const write = JSON.stringify(course,null,4);
 	
-   fs.writeFileSync(filePath, write,'utf-8');
-  
-   res.send(parsedContent);
+	// callback is Added
+	
+  const writeData= fs.writeFile(filePath, write,'utf-8', (err,data)=>{
+	  if(err){
+		  res.status(500).send(err.message)
+	  }
+	  JSON.parse(data)
+
+   });
+   
+   console.log(writeData);
+   res.send(writeData);
 
 	
 })
