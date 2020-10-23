@@ -2,7 +2,7 @@
 
 > `Restful Courses`
 
-Will be filled later.
+This project aims to build server using `Express.js` framework in the `Node.js`. There are  three main steps for each HTTP method to achieve it successfully .  Firstly, use `Express.js`  RESTful  methods such as `app.get(), app.method()`. Secondly,  read a file from the file system to do that using by `fs module`. In the second phase basically reads the data from the database `(json file)` and then writing some logics and modifying data. Finally,  if it is necessary to write files, then write the file in the relative path using by `fs module`.​
 
 ## 0. Set-Up
 
@@ -78,4 +78,3 @@ This user story has been developed through a branch called 'delete'.
 - Search for the required course, if it doesn't -throw an error and return
 - If the course exists - delete it
 - Write the data back to the file system.
-
