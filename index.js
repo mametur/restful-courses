@@ -77,6 +77,45 @@ function validateCourse(course) {
     
 }
 
+
+/*  
+PUT method , URL:"/api/courses/id", filePath = `${__dirname}/courses.json`
+read data ==> modify it ==> write it back to the file system
+*/
+app.put('/api/courses/:id', (req,res) => {
+       
+	fs.readFile(filePath, 'utf-8', (err, content) => {
+		if(err) {
+			res.status(500).send(err.message);
+			return;
+		}
+		const parsedCourses = JSON.parse(content);
+		const course = parsedCourses.find(c => c.id === parseInt(req.params.id));
+	   if(!course){
+		  res.status(404).send('No course with this id was found');
+		 return;
+		 } 
+
+		 const { error } = validateCourse(req.body)
+		if(error) {
+		res.status(400).send(error.details[0].message);
+		  return;
+		   }
+		   course["name"] = req.body.name;
+		
+		const stringifiedCourses = JSON.stringify(parsedCourses, null, '  ');
+		fs.writeFile(filePath, stringifiedCourses, (err) => {
+			if(err) {
+				res.status(500).send(err.message);
+				return;
+			}
+			res.send(course);
+		});
+
+	});
+});
+
+
 // environment variable for port
 const port = process.env.PORT || 3000;
 // start listen to application, it takes two arguments; first-> portNumber second=> a function can execute when it starts listening
