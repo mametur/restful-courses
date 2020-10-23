@@ -13,13 +13,10 @@ app.get('/', function (req, res) {
 	res.send(`Group1`);
 });
 
-
 // read courses.json file
 const filePath = __dirname + '/data/courses.json';
 
 // callback is added
-
-
 
 app.get('/data/courses.json', function (req, res) {
 
@@ -41,7 +38,6 @@ app.post('/data/courses.json',(req,res)=>{
     const { error } = validateCourse(req.body);
 	  if(error) return res.status(400).send(result.error.details[0].message);
 	 
-	
 	 fs.readFile(filePath, 'utf-8',(err,data)=>{
 	if(err){
 		console.error(err)
@@ -67,7 +63,6 @@ const course ={
 });
 		
 })
-
 
 function validateCourse(course) {
     const schema =Joi.object({
@@ -108,6 +103,44 @@ app.delete('/data/courses.json/:id', (req, res) => {
             console.log('Course was successfully deleted');
         });
     });
+});
+
+
+/*  
+PUT method , URL:"/api/courses/id", filePath = `${__dirname}/courses.json`
+read data ==> modify it ==> write it back to the file system
+*/
+app.put('/api/courses/:id', (req,res) => {
+       
+	fs.readFile(filePath, 'utf-8', (err, content) => {
+		if(err) {
+			res.status(500).send(err.message);
+			return;
+		}
+		const parsedCourses = JSON.parse(content);
+		const course = parsedCourses.find(c => c.id === parseInt(req.params.id));
+	   if(!course){
+		  res.status(404).send('No course with this id was found');
+		 return;
+		 } 
+
+		 const { error } = validateCourse(req.body)
+		if(error) {
+		res.status(400).send(error.details[0].message);
+		  return;
+		   }
+		   course["name"] = req.body.name;
+		
+		const stringifiedCourses = JSON.stringify(parsedCourses, null, '  ');
+		fs.writeFile(filePath, stringifiedCourses, (err) => {
+			if(err) {
+				res.status(500).send(err.message);
+				return;
+			}
+			res.send(course);
+		});
+
+	});
 });
 
 // environment variable for port
