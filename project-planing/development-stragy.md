@@ -63,3 +63,19 @@ This user story has been developed through a branch called 'put'.
 - Do the required modification.
 - Write the data back to the file system.
 - Do the necessary test cases using both the browser and postman tool.
+
+## 4. Delete course by the given ID
+
+**As a site visitor, I want to be able to delete a specific course by the given ID.**
+
+This user story has been developed through a branch called 'delete'.
+
+> Assign to **Aleksandra**
+
+### Node.js
+
+- Read the file system following the path `${__dirname}/courses.json` which contain the courses in a json format.
+- Search for the required course, if it doesn't -throw an error and return
+- If the course exists - delete it
+- Write the data back to the file system.
+

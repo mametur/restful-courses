@@ -13,13 +13,10 @@ app.get('/', function (req, res) {
 	res.send(`Group1`);
 });
 
-
 // read courses.json file
 const filePath = __dirname + '/data/courses.json';
 
 // callback is added
-
-
 
 app.get('/data/courses.json', function (req, res) {
 
@@ -41,7 +38,6 @@ app.post('/data/courses.json',(req,res)=>{
     const { error } = validateCourse(req.body);
 	  if(error) return res.status(400).send(result.error.details[0].message);
 	 
-	
 	 fs.readFile(filePath, 'utf-8',(err,data)=>{
 	if(err){
 		console.error(err)
@@ -68,7 +64,6 @@ const course ={
 		
 })
 
-
 function validateCourse(course) {
     const schema =Joi.object({
         name: Joi.string().min(3).required()
@@ -76,6 +71,39 @@ function validateCourse(course) {
     return schema.validate(course);
     
 }
+
+// delete by ID
+
+app.delete('/data/courses.json/:id', (req, res) => {
+    // read the file system and look up the course by ID
+    // if doesn't exist - return 404
+    fs.readFile(filePath, 'utf-8', (err, data) => {
+        if (err) {
+            return console.error(err);
+		}
+		
+        let myCourses = JSON.parse(data);
+		const removeCourse = myCourses.find((c) => c.id === parseInt(req.params.id));
+		
+		if (!removeCourse) return res.status(404).send('The course with the given ID was not found');
+        
+        // delete
+        console.log('this will be deleted ', removeCourse);
+        const index = myCourses.indexOf(removeCourse);
+        myCourses.splice(index, 1);
+		res.send(removeCourse);
+		
+        // re-writing the JSON file after deleting one of the courses
+        const write = JSON.stringify(myCourses, null, 4);
+        console.log('write json file again');
+        fs.writeFile(filePath, write, 'utf-8', (err, data) => {
+            if (err) {
+                return res.status(500).send(err.message);
+            }
+            console.log('Course was successfully deleted');
+        });
+    });
+});
 
 
 /*  
@@ -114,7 +142,6 @@ app.put('/api/courses/:id', (req,res) => {
 
 	});
 });
-
 
 // environment variable for port
 const port = process.env.PORT || 3000;
