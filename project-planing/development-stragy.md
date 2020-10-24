@@ -78,3 +78,18 @@ This user story has been developed through a branch called 'delete'.
 - Search for the required course, if it doesn't -throw an error and return
 - If the course exists - delete it
 - Write the data back to the file system.
+
+## 5. Get single course
+
+**As a site visitor, I want to be able to get a single course by providing the ID of the course in the browser or via the Postman.**
+
+This user story has been developed through a branch called 'get-single-course'.
+
+> Assign to **Miroslav**
+
+### Node.js
+
+- Install express framework
+- Import fs module
+- Search for the required course with a given ID, if it doesn't exist throw an error and return
+- If the course with a given ID exist, then show the course
